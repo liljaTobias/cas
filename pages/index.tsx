@@ -1,11 +1,9 @@
 import type { NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { AppBar, Container, IconButton, Toolbar, Typography } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 
 const Home: NextPage = () => {
   const { t } = useTranslation()
@@ -17,14 +15,16 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-        <AppBar position="static" color="primary" style={{ backgroundColor: "#42a5f5"}}>
-          <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu">
+      <AppBar position="static" color="primary" style={{ backgroundColor: '#42a5f5' }}>
+        <Toolbar>
+          <IconButton edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit">{t('casLong')}</Typography>
-          </Toolbar>
-        </AppBar>
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            {t('casLong')}
+          </Typography>
+        </Toolbar>
+      </AppBar>
     </div>
   )
 }
@@ -37,5 +37,5 @@ export async function getStaticProps({ locale }: { locale: string }) {
       ...(await serverSideTranslations(locale, ['common'])),
       // Will be passed to the page component as props
     },
-  };
+  }
 }
