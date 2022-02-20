@@ -5,7 +5,11 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
-const Home: NextPage = ({ data }) => {
+interface Props {
+  data: any
+}
+
+const Home: NextPage<Props> = ({ data }) => {
   const { t } = useTranslation()
 
   console.log(data)
