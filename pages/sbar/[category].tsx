@@ -1,5 +1,5 @@
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
@@ -74,7 +74,14 @@ const Sbar: NextPage<SbarProps> = ({ category }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  return {
+    paths: [], //indicates that no page needs be created at build time
+    fallback: 'blocking', //indicates the type of fallback
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   // const { category = '' } = params
   // const res = await fetch(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`)
   // const json = await res.json()
