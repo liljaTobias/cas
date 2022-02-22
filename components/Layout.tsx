@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import Navigation from './Navigation'
 import SbarTabs from './SbarTabs'
@@ -10,13 +11,16 @@ const Layout: React.FC = ({ children }) => {
     fetcher,
   )
 
+  const router = useRouter()
+  const { pathname } = router
+
   if (error) return <div>Failed to load</div>
   if (!data) return <div>Loading...</div>
 
   return (
     <div className="layout">
       <Navigation info={data.Item.info}>
-        <SbarTabs categories={data.Item.categories} />
+        {pathname.includes('/sbar') && <SbarTabs categories={data.Item.categories} />}
       </Navigation>
       {children}
     </div>
