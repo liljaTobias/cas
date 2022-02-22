@@ -1,5 +1,6 @@
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import Link from 'next/link'
 
 interface NavigationProps {
   info: {
@@ -20,7 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit">
-          {name}
+          <Link href="/">{name}</Link>
         </Typography>
         <img src={logo_url} alt={name} />
       </Toolbar>

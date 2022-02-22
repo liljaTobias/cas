@@ -1,6 +1,7 @@
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
 import WithLoading from '../../components/WithLoading'
@@ -29,13 +30,16 @@ interface SbarProps {
   }>
 }
 
-const Sbar: NextPage<SbarProps> = ({ category }) => {
+const Sbar: NextPage<SbarProps> = () => {
   const [open, setOpen] = useState(Array.from({ length: 5 }, () => false))
 
   const { data, isValidating } = useSWR(
     `https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`,
     fetcher,
   )
+
+  const router = useRouter()
+  const { category } = router.query
 
   const subcategories = useMemo(() => {
     if (!data) return []
@@ -72,27 +76,6 @@ const Sbar: NextPage<SbarProps> = ({ category }) => {
       </WithLoading>
     </>
   )
-}
-
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  return {
-    paths: [], //indicates that no page needs be created at build time
-    fallback: 'blocking', //indicates the type of fallback
-  }
-}
-
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-  // const { category = '' } = params
-  // const res = await fetch(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`)
-  // const json = await res.json()
-  // const subcategories = json.Item.categories.find((c) => c.category_id === category).subcategories
-  return {
-    props: {
-      ...(await serverSideTranslations(locale as string, ['common', 'header'])),
-      category: (params?.category as string) || 'situation',
-      subcategories: [],
-    },
-  }
 }
 
 export default Sbar
