@@ -1,6 +1,5 @@
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 import useSWR from 'swr'
