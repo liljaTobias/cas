@@ -1,8 +1,6 @@
 import {
   Alert,
   Button,
-  Card,
-  CardContent,
   FormControl,
   Grid,
   MenuItem,
@@ -59,6 +57,7 @@ const Login: NextPage<LoginProps> = () => {
     <div className={styles.container}>
       <Head>
         <title>CAS - Login</title>
+        <meta name="theme-color" content="#ffff" />
       </Head>
       <div className={styles.main}>
         <Grid container direction="column" justifyContent="center" alignItems="center">
