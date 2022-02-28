@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Card,
   CardContent,
@@ -7,6 +8,7 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
+  Snackbar,
   Typography,
 } from '@mui/material'
 import { NextPage } from 'next'
@@ -28,6 +30,8 @@ const Login: NextPage<LoginProps> = () => {
   const [organizationSelectValue, setOrganizationSelectValue] = useState('kommunkoping_v2')
   const router = useRouter()
 
+  const [isErrorOpen, setIsErrorOpen] = useState(false)
+
   const { data, error } = useSWR<TOrganizationsItems>(
     `https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations`,
     fetcher,
@@ -47,7 +51,7 @@ const Login: NextPage<LoginProps> = () => {
     if (isLoggedIn) {
       router.push('/sbar/situation')
     } else {
-      alert('No permission')
+      setIsErrorOpen(true)
     }
   }
 
@@ -93,6 +97,11 @@ const Login: NextPage<LoginProps> = () => {
           </FormControl>
         </Grid>
       </div>
+      <Snackbar open={isErrorOpen} autoHideDuration={6000} onClose={() => setIsErrorOpen(false)}>
+        <Alert severity="error" onClose={() => setIsErrorOpen(false)}>
+          Ingen användare kunde hittas
+        </Alert>
+      </Snackbar>
     </div>
   )
 }
