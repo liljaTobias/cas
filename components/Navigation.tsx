@@ -43,7 +43,6 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
           <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
             <Link href="/">{name}</Link>
           </Typography>
-          <img src={logo_url} alt={name} />
           <IconButton edge="end" {...bindTrigger(popupState)}>
             <MoreVert />
           </IconButton>
