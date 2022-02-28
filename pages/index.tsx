@@ -4,7 +4,7 @@ import type { NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -25,12 +25,14 @@ const Home: NextPage<Props> = ({ data }) => {
 
   const [isDialogOpen, setIsDialogOpen] = useState(true)
 
-  if (localStorage.getItem('user') !== 'admin') {
-    router.push('/login')
-  }
-
-  // TODO: Change to proper redirect
-  router.push('/sbar/situation')
+  useEffect(() => {
+    if (localStorage.getItem('user') !== 'admin') {
+      router.push('/login')
+    } else {
+      // TODO: Change to proper redirect
+      router.push('/sbar/situation')
+    }
+  }, [router])
 
   return (
     <>
