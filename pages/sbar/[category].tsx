@@ -42,7 +42,9 @@ const Sbar: NextPage<SbarProps> = () => {
 
   const subcategories = useMemo(() => {
     if (!data) return []
-    return data.Item.categories.find((c: TCategory) => c.category_id === category).subcategories as TSubcategory[]
+    return (
+      (data.Item.categories.find((c: TCategory) => c.category_id === category).subcategories as TSubcategory[]) || []
+    )
   }, [category, data])
 
   const handleOpenList = (index: number) => {
