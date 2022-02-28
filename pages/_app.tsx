@@ -1,14 +1,16 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
-import Layout from '../components/Layout'
+import { Page } from '../types/page'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  )
+type AppPropsWithLayout = AppProps & {
+  Component: Page
 }
 
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page)
+  return getLayout(<Component {...pageProps} />)
+}
+
+// @ts-ignore
 export default appWithTranslation(MyApp)

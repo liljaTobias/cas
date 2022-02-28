@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import { fetcher } from '../utils/api'
 import Navigation from './Navigation'
 import SbarTabs from './SbarTabs'
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 const Layout: React.FC = ({ children }) => {
   const { data, error } = useSWR(

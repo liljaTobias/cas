@@ -7,15 +7,10 @@ import { MoreVert } from '@mui/icons-material'
 
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks'
 import { useRouter } from 'next/router'
+import { TInfo } from '../types/api'
 
 interface NavigationProps {
-  info: {
-    name: string
-    logo_url: string
-    theme: {
-      primaryColor: string
-    }
-  }
+  info: TInfo
 }
 
 const Navigation: React.FC<NavigationProps> = ({ info, children }) => {

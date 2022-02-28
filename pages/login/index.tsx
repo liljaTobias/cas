@@ -1,10 +1,11 @@
 import { Button, Grid, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
 import { NextPage } from 'next'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+import { TOrganizationsItems } from '../../types/api'
+import { fetcher } from '../../utils/api'
 
 interface LoginProps {}
 
@@ -12,7 +13,10 @@ const Login: NextPage<LoginProps> = () => {
   const [organizationSelectValue, setOrganizationSelectValue] = useState('kommunkoping_v2')
   const router = useRouter()
 
-  const { data, error } = useSWR(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations`, fetcher)
+  const { data, error } = useSWR<TOrganizationsItems>(
+    `https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations`,
+    fetcher,
+  )
 
   const handleChange = (event: SelectChangeEvent) => {
     setOrganizationSelectValue(event.target.value as string)
@@ -34,6 +38,9 @@ const Login: NextPage<LoginProps> = () => {
 
   return (
     <>
+      <Head>
+        <title>CAS - Login</title>
+      </Head>
       <Grid container alignItems="center" justifyContent="center" direction="column">
         <Typography variant="h2">Login</Typography>
         <Typography variant="body1">Välj din organisation</Typography>

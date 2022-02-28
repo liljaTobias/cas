@@ -1,25 +1,12 @@
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
-import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useMemo, useState } from 'react'
+import { ReactElement, useMemo, useState } from 'react'
 import useSWR from 'swr'
+import Layout from '../../components/Layout'
 import WithLoading from '../../components/WithLoading'
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-interface TSubcategory {
-  subcategory_id: string
-  subcategory_name: string
-  actions: {
-    [key: string]: string
-  }
-}
-
-interface TCategory {
-  category_id: string
-  category_name: string
-  subcategories: TSubcategory[]
-}
+import { TCategory, TSubcategory } from '../../types/api'
+import { Page } from '../../types/page'
+import { fetcher } from '../../utils/api'
 
 interface SbarProps {
   category: string
@@ -29,7 +16,7 @@ interface SbarProps {
   }>
 }
 
-const Sbar: NextPage<SbarProps> = () => {
+const Sbar: Page<SbarProps> = () => {
   const [open, setOpen] = useState(Array.from({ length: 5 }, () => false))
 
   const { data, isValidating } = useSWR(
@@ -80,3 +67,7 @@ const Sbar: NextPage<SbarProps> = () => {
 }
 
 export default Sbar
+
+Sbar.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>
+}
