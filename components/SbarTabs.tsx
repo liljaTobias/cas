@@ -30,7 +30,13 @@ const SbarTabs: React.FC<SbarProps> = ({ categories }) => {
 
   return (
     <>
-      <Tabs value={activeTab} onChange={(event, newValue) => handleTabChange(newValue)}>
+      <Tabs
+        value={activeTab}
+        onChange={(event, newValue) => handleTabChange(newValue)}
+        variant="scrollable"
+        indicatorColor="secondary"
+        textColor="inherit"
+      >
         {categories.map((category_s) => (
           <Tab key={category_s.category_id} label={category_s.category_name} />
         ))}

@@ -1,19 +1,8 @@
-import { Button, Dialog, DialogContent, DialogContentText, Slide } from '@mui/material'
-import { TransitionProps } from '@mui/material/transitions'
 import type { NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement
-  },
-  ref: React.Ref<unknown>,
-) {
-  return <Slide direction="up" ref={ref} {...props} />
-})
 
 interface Props {
   data: any
@@ -22,8 +11,6 @@ interface Props {
 const Home: NextPage<Props> = ({ data }) => {
   const { t } = useTranslation()
   const router = useRouter()
-
-  const [isDialogOpen, setIsDialogOpen] = useState(true)
 
   useEffect(() => {
     if (localStorage.getItem('user') !== 'admin') {
@@ -34,16 +21,7 @@ const Home: NextPage<Props> = ({ data }) => {
     }
   }, [router])
 
-  return (
-    <>
-      <Dialog fullScreen open={isDialogOpen} TransitionComponent={Transition}>
-        <DialogContent>
-          <DialogContentText>Login</DialogContentText>
-          <Button onClick={() => setIsDialogOpen(false)}>Close</Button>
-        </DialogContent>
-      </Dialog>
-    </>
-  )
+  return <></>
 }
 
 export default Home
