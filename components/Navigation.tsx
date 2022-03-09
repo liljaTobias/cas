@@ -52,7 +52,7 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
         </Toolbar>
         {children}
       </AppBar>
-      <NavDrawer open={isNavDrawerOpen} onClose={handleNavDrawToggle} />
+      <NavDrawer open={isNavDrawerOpen} onClose={handleNavDrawToggle} logoUrl={logo_url} />
     </>
   )
 }
