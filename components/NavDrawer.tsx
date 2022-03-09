@@ -2,7 +2,8 @@ import HelpIcon from '@mui/icons-material/Help'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import { Box, Divider, Drawer, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import Link from 'next/link'
-import { FormatListBulleted, Settings } from '@mui/icons-material'
+import { FormatListBulleted } from '@mui/icons-material'
+import SettingsDialog from './SettingsDialog'
 
 interface NavigationProps {
   open: boolean
@@ -37,12 +38,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
         </Box>
         <Divider variant="middle" />
         <List>
-          <ListItemButton disabled>
-            <ListItemIcon>
-              <Settings />
-            </ListItemIcon>
-            <ListItemText primary="Inställningar" />
-          </ListItemButton>
+          <SettingsDialog />
           <ListItemButton disabled>
             <ListItemIcon>
               <HelpIcon />

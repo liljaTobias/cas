@@ -47,7 +47,9 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
             <MoreVert />
           </IconButton>
           <Menu {...bindMenu(popupState)}>
-            <MenuItem onClick={handleLogout}>Logga ut</MenuItem>
+            <MenuItem onClick={handleLogout} disabled>
+              Logga ut (disabled)
+            </MenuItem>
           </Menu>
         </Toolbar>
         {children}
