@@ -1,12 +1,9 @@
-import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import Link from 'next/link'
 import NavDrawer from './NavDrawer'
 import React, { useCallback, useState } from 'react'
-import { MoreVert } from '@mui/icons-material'
 
-import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks'
-import { useRouter } from 'next/router'
 import { TInfo } from '../types/api'
 
 interface NavigationProps {
@@ -16,9 +13,6 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
   const { name, logo_url, theme } = info
-  const router = useRouter()
-
-  const popupState = usePopupState({ variant: 'popover', popupId: 'demo-popup-menu' })
 
   const handleNavDrawToggle = useCallback(
     (open = !isNavDrawerOpen) => {
@@ -26,12 +20,6 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
     },
     [isNavDrawerOpen],
   )
-
-  const handleLogout = useCallback(() => {
-    localStorage.removeItem('user')
-    popupState.close()
-    router.push('/login')
-  }, [popupState, router])
 
   return (
     <>
@@ -43,15 +31,6 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
           <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
             <Link href="/">{name}</Link>
           </Typography>
-          <IconButton edge="end" {...bindTrigger(popupState)}>
-            <MoreVert />
-          </IconButton>
-          <Menu {...bindMenu(popupState)}>
-            <a href="/api/auth/login">Logga in</a>
-            <MenuItem onClick={handleLogout} disabled>
-              Logga ut (disabled)
-            </MenuItem>
-          </Menu>
         </Toolbar>
         {children}
       </AppBar>
