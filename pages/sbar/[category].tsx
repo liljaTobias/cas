@@ -1,8 +1,8 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { Collapse, List } from '@mui/material'
 import { useRouter } from 'next/router'
-import { ReactElement, useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import useSWR from 'swr'
-import Layout from '../../components/Layout'
 import WithLoading from '../../components/WithLoading'
 import { TCategory, TSubcategory } from '../../types/api'
 import { Page } from '../../types/page'
@@ -71,8 +71,4 @@ const Sbar: Page<SbarProps> = () => {
   )
 }
 
-export default Sbar
-
-Sbar.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
-}
+export default withPageAuthRequired(Sbar as any)
