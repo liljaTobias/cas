@@ -1,27 +1,31 @@
+import { useUser } from '@auth0/nextjs-auth0'
+import { Backdrop, CircularProgress } from '@mui/material'
 import type { NextPage } from 'next'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 interface Props {
   data: any
 }
 
-const Home: NextPage<Props> = ({ data }) => {
-  const { t } = useTranslation()
+const Home: NextPage<Props> = () => {
   const router = useRouter()
+  const { user } = useUser()
 
   useEffect(() => {
-    if (localStorage.getItem('user') !== 'admin') {
-      router.push('/login')
-    } else {
-      // TODO: Change to proper redirect
+    if (user) {
       router.push('/sbar/situation')
+    } else {
+      router.push('/api/auth/login')
     }
-  }, [router])
+  }, [user, router])
 
-  return <></>
+  return (
+    <Backdrop open={true}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  )
 }
 
 export default Home

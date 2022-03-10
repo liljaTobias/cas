@@ -17,7 +17,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
     <>
       <Drawer open={open} onClose={() => onClose(false)}>
         <Box sx={{ width: 200 }}>
-          <img src={logoUrl} alt="text" />
+          <img src={logoUrl} alt="text" width={200} />
           <Divider />
           <List>
             <Link href="/sbar/situation" passHref>

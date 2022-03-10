@@ -47,6 +47,7 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
             <MoreVert />
           </IconButton>
           <Menu {...bindMenu(popupState)}>
+            <a href="/api/auth/login">Logga in</a>
             <MenuItem onClick={handleLogout} disabled>
               Logga ut (disabled)
             </MenuItem>

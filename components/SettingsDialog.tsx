@@ -1,3 +1,4 @@
+import { useUser } from '@auth0/nextjs-auth0'
 import { Close, Logout, Settings } from '@mui/icons-material'
 import {
   AppBar,
@@ -34,13 +35,11 @@ const Transition = forwardRef(function Transition(
 const SettingsDialog = () => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'settingsDialog' })
   const router = useRouter()
-
-  const user = localStorage.getItem('user')
+  const { user } = useUser()
 
   const handleLogout = useCallback(() => {
-    localStorage.removeItem('user')
     popupState.close()
-    router.push('/login')
+    router.push('/api/auth/logout')
   }, [popupState, router])
 
   return (
@@ -72,9 +71,9 @@ const SettingsDialog = () => {
               sx={{ backgroundColor: 'white' }}
             >
               <ListItemAvatar>
-                <Avatar alt="user">{user?.slice(0, 1)}</Avatar>
+                <Avatar alt="user">{user?.name?.slice(0, 1)}</Avatar>
               </ListItemAvatar>
-              <ListItemText primary={user} />
+              <ListItemText primary={user?.name} />
             </ListItem>
             <Divider />
           </List>
