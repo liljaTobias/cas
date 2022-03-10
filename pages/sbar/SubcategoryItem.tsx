@@ -10,7 +10,7 @@ const SubcategoryItem: React.FC<SubcategoryItemProps> = ({ name, onClick }) => {
   return (
     <div className={styles.subcategoryItem}>
       <ListItemButton onClick={onClick}>
-        <ListItemText primary={name as string} />
+        <ListItemText primary={name} primaryTypographyProps={{ sx: { fontWeight: '500' } }} />
       </ListItemButton>
       <Divider />
     </div>
