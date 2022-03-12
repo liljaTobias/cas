@@ -11,15 +11,15 @@ interface Props {
 
 const Home: NextPage<Props> = () => {
   const router = useRouter()
-  const { user } = useUser()
+  // const { user } = useUser()
 
   useEffect(() => {
-    if (user) {
-      router.push('/sbar/situation')
-    } else {
-      router.push('/api/auth/login')
-    }
-  }, [user, router])
+    router.push('/sbar/situation')
+    // if (user) {
+    // } else {
+    //   router.push('/api/auth/login')
+    // }
+  }, [router])
 
   return (
     <Backdrop open={true}>
