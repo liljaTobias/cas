@@ -55,6 +55,7 @@ const Sbar: Page<SbarProps> = () => {
                 name={subcategory.subcategory_name}
                 onClick={() => handleOpenList(index)}
                 key={subcategory.subcategory_id}
+                isOpen={open[index]}
               />
               <Collapse in={open[index]}>
                 <List disablePadding>
@@ -71,4 +72,4 @@ const Sbar: Page<SbarProps> = () => {
   )
 }
 
-export default withPageAuthRequired(Sbar as any)
+export default Sbar
