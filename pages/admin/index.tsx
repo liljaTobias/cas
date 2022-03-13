@@ -56,3 +56,9 @@ const Admin: NextPage<AdminProps> = ({ organization }) => {
 }
 
 export default Admin
+
+export const getStaticProps = async () => {
+  const res = await fetch(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`)
+  const data = await res.json()
+  return { props: { organization: data.Item } }
+}
