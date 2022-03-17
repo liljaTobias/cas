@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { Button, Paper, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { Formik, Form, Field } from 'formik'
@@ -57,8 +58,10 @@ const Admin: NextPage<AdminProps> = ({ organization }) => {
 
 export default Admin
 
-export const getStaticProps = async () => {
-  const res = await fetch(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`)
-  const data = await res.json()
-  return { props: { organization: data.Item } }
-}
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps() {
+    const res = await fetch(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`)
+    const data = await res.json()
+    return { props: { organization: data.Item } }
+  },
+})
