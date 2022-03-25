@@ -1,10 +1,10 @@
-import HelpIcon from '@mui/icons-material/Help'
 import { Box, Divider, Drawer, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import Link from 'next/link'
 import { AdminPanelSettings, FormatListBulleted, Login } from '@mui/icons-material'
 import SettingsDialog from './SettingsDialog'
 import { useUser } from '@auth0/nextjs-auth0'
 import { useCallback } from 'react'
+import AboutDialog from './AboutDialog'
 
 // Prototype
 const navigationRoutes = {
@@ -86,12 +86,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
             </Link>
           )}
           <SettingsDialog />
-          <ListItemButton disabled>
-            <ListItemIcon>
-              <HelpIcon />
-            </ListItemIcon>
-            <ListItemText primary="Om" />
-          </ListItemButton>
+          <AboutDialog />
         </List>
       </Drawer>
     </>
