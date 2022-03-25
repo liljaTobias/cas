@@ -1,4 +1,3 @@
-import { UserProvider } from '@auth0/nextjs-auth0'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
@@ -27,11 +26,9 @@ const Layout: React.FC = ({ children }) => {
         <meta name="theme-color" content={data.Item.info.theme.primaryColor} />
       </Head>
       <div className="layout">
-        <UserProvider>
-          <Navigation info={data.Item.info}>
-            {pathname.includes('/sbar') && <SbarTabs categories={data.Item.categories} />}
-          </Navigation>
-        </UserProvider>
+        <Navigation info={data.Item.info}>
+          {pathname.includes('/sbar') && <SbarTabs categories={data.Item.categories} />}
+        </Navigation>
         {children}
       </div>
     </>

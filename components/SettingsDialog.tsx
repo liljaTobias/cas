@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0'
 import { Close, Logout, Settings } from '@mui/icons-material'
 import {
   AppBar,
@@ -20,8 +19,8 @@ import {
 } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
 import { usePopupState, bindToggle, bindTrigger } from 'material-ui-popup-state/hooks'
-import { useRouter } from 'next/router'
-import { forwardRef, useCallback } from 'react'
+import { signOut, useSession } from 'next-auth/react'
+import { forwardRef } from 'react'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -34,13 +33,8 @@ const Transition = forwardRef(function Transition(
 
 const SettingsDialog = () => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'settingsDialog' })
-  const router = useRouter()
-  const { user } = useUser()
 
-  const handleLogout = useCallback(() => {
-    popupState.close()
-    router.push('/api/auth/logout')
-  }, [popupState, router])
+  const { data: session } = useSession()
 
   return (
     <>
@@ -64,16 +58,16 @@ const SettingsDialog = () => {
             <Divider />
             <ListItem
               secondaryAction={
-                <IconButton color="error" onClick={handleLogout}>
+                <IconButton color="error" onClick={() => signOut()}>
                   <Logout />
                 </IconButton>
               }
               sx={{ backgroundColor: 'white' }}
             >
               <ListItemAvatar>
-                <Avatar alt="user">{user?.name?.slice(0, 1)}</Avatar>
+                <Avatar alt="user">{session?.user?.name?.slice(0, 1)}</Avatar>
               </ListItemAvatar>
-              <ListItemText primary={user?.name} />
+              <ListItemText primary={session?.user?.name} secondary={session?.user?.email} />
             </ListItem>
             <Divider />
           </List>

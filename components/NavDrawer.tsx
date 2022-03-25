@@ -2,9 +2,9 @@ import { Box, Divider, Drawer, List, ListItemButton, ListItemIcon, ListItemText 
 import Link from 'next/link'
 import { AdminPanelSettings, FormatListBulleted, Login } from '@mui/icons-material'
 import SettingsDialog from './SettingsDialog'
-import { useUser } from '@auth0/nextjs-auth0'
 import { useCallback } from 'react'
 import AboutDialog from './AboutDialog'
+import { signIn, useSession } from 'next-auth/react'
 
 // Prototype
 const navigationRoutes = {
@@ -34,14 +34,14 @@ interface NavigationProps {
 }
 
 const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }) => {
-  const { user } = useUser()
+  const { data: session } = useSession()
 
   const handleClose = useCallback(() => {
     onClose(false)
   }, [onClose])
 
   const renderAdminLinks = useCallback(() => {
-    if (user) {
+    if (session) {
       return (
         <Link href="/admin" passHref>
           <ListItemButton onClick={handleClose}>
@@ -53,7 +53,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
         </Link>
       )
     }
-  }, [user, handleClose])
+  }, [session, handleClose])
 
   return (
     <>
@@ -75,15 +75,13 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
         </Box>
         <Divider variant="middle" />
         <List>
-          {!user && (
-            <Link href="/api/auth/login" passHref>
-              <ListItemButton onClick={handleClose}>
-                <ListItemIcon>
-                  <Login />
-                </ListItemIcon>
-                <ListItemText primary="Logga in" />
-              </ListItemButton>
-            </Link>
+          {!session && (
+            <ListItemButton onClick={() => signIn()}>
+              <ListItemIcon>
+                <Login />
+              </ListItemIcon>
+              <ListItemText primary="Logga in" />
+            </ListItemButton>
           )}
           <SettingsDialog />
           <AboutDialog />
