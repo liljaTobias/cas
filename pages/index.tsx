@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0'
 import { Backdrop, CircularProgress } from '@mui/material'
 import type { NextPage } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'

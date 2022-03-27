@@ -1,4 +1,3 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { Collapse, List } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo, useState } from 'react'
