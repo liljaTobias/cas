@@ -1,14 +1,8 @@
 import { Close, Help } from '@mui/icons-material'
 import {
   AppBar,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
   Dialog,
   DialogContent,
-  DialogContentText,
   Divider,
   IconButton,
   ListItemButton,
@@ -21,7 +15,7 @@ import {
 } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
 import { usePopupState, bindToggle, bindTrigger } from 'material-ui-popup-state/hooks'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -56,7 +50,7 @@ const AboutDialog = () => {
           <Stack spacing={2}>
             <Typography variant="h5">CAS</Typography>
             <Typography variant="body1">
-              CAS är en innovativ och skalbar digital plattform som ger hälso- och sjukvården möjlighet att erbjuda en
+              CAS är en innovativ och skalbar digital plattform som ger vård och omsorg möjlighet att erbjuda en
               effektiv kommunikationsstrategi mellan olika befattningar inom organisationen. Plattformen består av ett
               intuitivt webbgränssnitt för vårdgivaren och en användarvänlig webbportal där vårdgivaren under strikt
               kontroll och med korrekt behörigheter själv kan anpassa sitt eget strategiska informationsinnehåll.
