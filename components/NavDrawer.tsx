@@ -5,26 +5,7 @@ import SettingsDialog from './SettingsDialog'
 import { useCallback } from 'react'
 import AboutDialog from './AboutDialog'
 import { signIn, useSession } from 'next-auth/react'
-
-// Prototype
-const navigationRoutes = {
-  common: [
-    {
-      label: 'SBAR',
-      href: '/sbar/situation',
-      icon: FormatListBulleted,
-      permission: 'all',
-    },
-  ],
-  misc: [
-    {
-      label: 'Admin',
-      href: '/admin',
-      icon: AdminPanelSettings,
-      permission: 'admin',
-    },
-  ],
-}
+import Image from 'next/image'
 
 interface NavigationProps {
   open: boolean
@@ -59,7 +40,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
     <>
       <Drawer open={open} onClose={() => onClose(false)}>
         <Box sx={{ width: 200 }}>
-          <img src={logoUrl} alt="text" width={200} />
+          <Image src={logoUrl} alt="logo" width={200} height={75} />
           <Divider />
           <List>
             <Link href="/sbar/situation" passHref>

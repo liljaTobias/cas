@@ -1,12 +1,11 @@
 /** @type {import('next').NextConfig} */
 
 const withPWA = require('next-pwa')
-const { i18n } = require('./next-i18next.config');
+const { i18n } = require('./next-i18next.config')
 
 const nextConfig = {
   reactStrictMode: true,
 }
-
 
 module.exports = withPWA({
   nextConfig,
@@ -14,7 +13,10 @@ module.exports = withPWA({
     dest: 'public',
     register: true,
     skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development'
+    disable: process.env.NODE_ENV === 'development',
   },
-  i18n
+  i18n,
+  images: {
+    domains: ['sbar-images.s3.eu-north-1.amazonaws.com'],
+  },
 })
