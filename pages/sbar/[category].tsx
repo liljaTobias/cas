@@ -1,39 +1,21 @@
 import { Collapse, List } from '@mui/material'
-import { useRouter } from 'next/router'
-import { useCallback, useMemo, useState } from 'react'
-import useSWR from 'swr'
-import WithLoading from '../../components/WithLoading'
-import { TCategory, TSubcategory } from '../../types/api'
+import { GetServerSideProps } from 'next'
+import { useCallback, useState } from 'react'
+import { TCategory, TOganization, TSubcategory } from '../../types/api'
 import { Page } from '../../types/page'
-import { fetcher } from '../../utils/api'
 import ActionItem from './ActionItem'
 import SubcategoryItem from './SubcategoryItem'
 
+import SbarLayout from '../../components/SbarLayout'
+
 interface SbarProps {
+  organization: TOganization
   category: string
-  subcategories: Array<{
-    subcategory_id: string
-    subcategory_name: string
-  }>
+  subcategories: Array<TSubcategory>
 }
 
-const Sbar: Page<SbarProps> = () => {
+const Sbar: Page<SbarProps> = ({ organization, subcategories }) => {
   const [open, setOpen] = useState(Array.from({ length: 5 }, () => false))
-
-  const { data } = useSWR(
-    `https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`,
-    fetcher,
-  )
-
-  const router = useRouter()
-  const { category } = router.query
-
-  const subcategories = useMemo(() => {
-    if (!data) return []
-    return (
-      (data.Item.categories.find((c: TCategory) => c.category_id === category).subcategories as TSubcategory[]) || []
-    )
-  }, [category, data])
 
   const handleOpenList = useCallback(
     (index: number) => {
@@ -46,7 +28,7 @@ const Sbar: Page<SbarProps> = () => {
 
   return (
     <>
-      <WithLoading isOpen={!data}>
+      <SbarLayout organization={organization}>
         <List disablePadding>
           {subcategories.map((subcategory, index: number) => (
             <div key={subcategory.subcategory_id}>
@@ -66,9 +48,18 @@ const Sbar: Page<SbarProps> = () => {
             </div>
           ))}
         </List>
-      </WithLoading>
+      </SbarLayout>
     </>
   )
 }
 
 export default Sbar
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const res = await fetch(`${process.env.API_URL}/api/organizations/kommunkoping_v2`)
+  const org: TOganization = await res.json()
+
+  const subcategories = org.categories.find((c: TCategory) => c.category_id === params?.category)?.subcategories || []
+
+  return { props: { organization: org, category: params?.category, subcategories } }
+}
