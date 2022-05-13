@@ -1,6 +1,5 @@
 import { Backdrop, CircularProgress } from '@mui/material'
 import type { NextPage } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
@@ -28,12 +27,3 @@ const Home: NextPage<Props> = () => {
 }
 
 export default Home
-
-export async function getStaticProps({ locale }: { locale: string }) {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common'])),
-      // Will be passed to the page component as props
-    },
-  }
-}
