@@ -8,24 +8,22 @@ import { TInfo } from '../types/api'
 
 interface NavigationProps {
   info: TInfo
+  children: React.ReactNode
 }
 
 const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState(false)
   const { name, logo_url, theme } = info
 
-  const handleNavDrawToggle = useCallback(
-    (open = !isNavDrawerOpen) => {
-      setIsNavDrawerOpen(open)
-    },
-    [isNavDrawerOpen],
-  )
+  const handleNavDrawToggle = useCallback(() => {
+    setIsNavDrawerOpen((prev) => !prev)
+  }, [])
 
   return (
     <>
       <AppBar position="static" color="primary" style={{ backgroundColor: theme.primaryColor }}>
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleNavDrawToggle}>
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => handleNavDrawToggle()}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
@@ -34,7 +32,7 @@ const Navigation: React.FC<NavigationProps> = ({ info, children }) => {
         </Toolbar>
         {children}
       </AppBar>
-      <NavDrawer open={isNavDrawerOpen} onClose={handleNavDrawToggle} logoUrl={logo_url} />
+      <NavDrawer open={isNavDrawerOpen} handleClose={handleNavDrawToggle} logoUrl={logo_url} />
     </>
   )
 }

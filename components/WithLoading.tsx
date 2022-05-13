@@ -2,6 +2,7 @@ import { Backdrop, CircularProgress } from '@mui/material'
 
 interface WithLodingProps {
   isOpen: boolean
+  children: React.ReactNode
 }
 
 const WithLoading: React.FC<WithLodingProps> = ({ isOpen, children }) => {

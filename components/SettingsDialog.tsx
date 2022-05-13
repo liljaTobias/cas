@@ -19,8 +19,8 @@ import {
 } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
 import { usePopupState, bindToggle, bindTrigger } from 'material-ui-popup-state/hooks'
-import { signOut, useSession } from 'next-auth/react'
-import { forwardRef } from 'react'
+import { getSession, signOut, useSession } from 'next-auth/react'
+import { forwardRef, useCallback, useEffect } from 'react'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -35,6 +35,8 @@ const SettingsDialog = () => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'settingsDialog' })
 
   const { data: session } = useSession()
+
+  console.log(session)
 
   return (
     <>

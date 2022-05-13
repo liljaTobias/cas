@@ -1,11 +1,12 @@
-import { Button, Paper, Stack, Typography } from '@mui/material'
+import { Button, Paper, Skeleton, Stack, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import { Formik, Form, Field } from 'formik'
 import { TextField } from 'formik-mui'
 import { NextPage } from 'next'
-import SbarTable from '../../components/forms/SbarTable'
-
+import dynamic from 'next/dynamic'
 import { TOganization } from '../../types/api'
+
+const SbarTable = dynamic(() => import('../../components/forms/SbarTable'), { loading: () => <Skeleton /> })
 
 interface AdminProps {
   organization: TOganization
@@ -58,7 +59,8 @@ const Admin: NextPage<AdminProps> = ({ organization }) => {
 export default Admin
 
 export const getServerSideProps = async () => {
-  const res = await fetch(`https://t1vy4habx7.execute-api.eu-north-1.amazonaws.com/organizations/kommunkoping_v2`)
-  const data = await res.json()
-  return { props: { organization: data.Item } }
+  const res = await fetch(`${process.env.API_URL}/api/organizations/kommunkoping_v2`)
+  const org: TOganization = await res.json()
+
+  return { props: { organization: org } }
 }

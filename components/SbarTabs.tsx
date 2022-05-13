@@ -21,7 +21,7 @@ const SbarTabs: React.FC<SbarProps> = ({ categories }) => {
   }, [category, categories])
 
   const handleTabChange = useCallback(
-    (newValue) => {
+    (newValue: number) => {
       setActiveTab(newValue)
       router.push(`/sbar/${categories[newValue].category_id}`)
     },
@@ -32,7 +32,7 @@ const SbarTabs: React.FC<SbarProps> = ({ categories }) => {
     <>
       <Tabs
         value={activeTab}
-        onChange={(event, newValue) => handleTabChange(newValue)}
+        onChange={(event, newValue: number) => handleTabChange(newValue)}
         variant="scrollable"
         indicatorColor="secondary"
         textColor="inherit"
