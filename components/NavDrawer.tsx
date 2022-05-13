@@ -16,20 +16,20 @@ interface NavigationProps {
 const NavDrawer: React.FC<NavigationProps> = ({ open = false, handleClose, logoUrl }) => {
   const { data: session } = useSession()
 
-  const renderAdminLinks = useCallback(() => {
-    if (session) {
-      return (
-        <Link href="/admin" passHref>
-          <ListItemButton onClick={handleClose}>
-            <ListItemIcon>
-              <AdminPanelSettings />
-            </ListItemIcon>
-            <ListItemText primary="Admin" />
-          </ListItemButton>
-        </Link>
-      )
-    }
-  }, [session, handleClose])
+  // const renderAdminLinks = useCallback(() => {
+  //   if (session) {
+  //     return (
+  //       <Link href="/admin" passHref>
+  //         <ListItemButton onClick={handleClose}>
+  //           <ListItemIcon>
+  //             <AdminPanelSettings />
+  //           </ListItemIcon>
+  //           <ListItemText primary="Admin" />
+  //         </ListItemButton>
+  //       </Link>
+  //     )
+  //   }
+  // }, [session, handleClose])
 
   return (
     <>
@@ -46,19 +46,19 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, handleClose, logoU
                 <ListItemText primary="SBAR" />
               </ListItemButton>
             </Link>
-            {renderAdminLinks()}
+            {/* {renderAdminLinks()} */}
           </List>
         </Box>
         <Divider variant="middle" />
         <List>
-          {!session && (
-            <ListItemButton onClick={() => signIn()}>
-              <ListItemIcon>
-                <Login />
-              </ListItemIcon>
-              <ListItemText primary="Logga in" />
-            </ListItemButton>
-          )}
+          {/* {!session && ( */}
+          <ListItemButton onClick={() => signIn()}>
+            <ListItemIcon>
+              <Login />
+            </ListItemIcon>
+            <ListItemText primary="Logga in" />
+          </ListItemButton>
+          {/* )} */}
           <SettingsDialog />
           <AboutDialog />
         </List>
