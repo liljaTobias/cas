@@ -14,7 +14,7 @@ interface NavigationProps {
 }
 
 const NavDrawer: React.FC<NavigationProps> = ({ open = false, handleClose, logoUrl }) => {
-  const { data: session } = useSession()
+  // const { data: session } = useSession()
 
   // const renderAdminLinks = useCallback(() => {
   //   if (session) {
