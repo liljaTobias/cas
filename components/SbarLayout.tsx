@@ -5,6 +5,7 @@ import SbarTabs from './SbarTabs'
 
 type SbarLayoutProps = {
   organization: TOganization
+  children: React.ReactNode
 }
 
 const SbarLayout: React.FC<SbarLayoutProps> = ({ organization, children }) => {

@@ -9,17 +9,12 @@ import Image from 'next/image'
 
 interface NavigationProps {
   open: boolean
-  /* eslint-disable-next-line */
-  onClose: (arg0?: boolean) => void
+  handleClose: () => void
   logoUrl: string
 }
 
-const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }) => {
+const NavDrawer: React.FC<NavigationProps> = ({ open = false, handleClose, logoUrl }) => {
   const { data: session } = useSession()
-
-  const handleClose = useCallback(() => {
-    onClose(false)
-  }, [onClose])
 
   const renderAdminLinks = useCallback(() => {
     if (session) {
@@ -38,7 +33,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
 
   return (
     <>
-      <Drawer open={open} onClose={() => onClose(false)}>
+      <Drawer open={open} onClose={handleClose}>
         <Box sx={{ width: 200 }}>
           <Image src={logoUrl} alt="logo" width={200} height={75} />
           <Divider />
