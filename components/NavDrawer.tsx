@@ -5,6 +5,8 @@ import SettingsDialog from './SettingsDialog'
 import { useCallback } from 'react'
 import AboutDialog from './AboutDialog'
 import { signIn, useSession } from 'next-auth/react'
+import Image from 'next/image'
+import { Logo } from './Logo'
 
 // Prototype
 const navigationRoutes = {
@@ -59,7 +61,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
     <>
       <Drawer open={open} onClose={() => onClose(false)}>
         <Box sx={{ width: 200 }}>
-          <img src={logoUrl} alt="text" width={200} />
+          <Logo />
           <Divider />
           <List>
             <Link href="/sbar/situation" passHref>
@@ -76,7 +78,7 @@ const NavDrawer: React.FC<NavigationProps> = ({ open = false, onClose, logoUrl }
         <Divider variant="middle" />
         <List>
           {!session && (
-            <ListItemButton onClick={() => signIn()}>
+            <ListItemButton onClick={() => signIn()} disabled>
               <ListItemIcon>
                 <Login />
               </ListItemIcon>

@@ -1,6 +1,7 @@
 import { Close, Help } from '@mui/icons-material'
 import {
   AppBar,
+  Button,
   Dialog,
   DialogContent,
   Divider,
@@ -15,7 +16,9 @@ import {
 } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
 import { usePopupState, bindToggle, bindTrigger } from 'material-ui-popup-state/hooks'
-import { forwardRef } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { forwardRef, useCallback } from 'react'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,6 +31,12 @@ const Transition = forwardRef(function Transition(
 
 const AboutDialog = () => {
   const popupState = usePopupState({ variant: 'popover', popupId: 'settingsDialog' })
+  const { push } = useRouter()
+
+  const changeRoute = useCallback(() => {
+    push('/about')
+    popupState.close()
+  }, [push, popupState])
 
   return (
     <>
@@ -71,6 +80,9 @@ const AboutDialog = () => {
               Bedömningsstödet gör att samma frågor ställs, oavsett vilken sjuksköterska som kontaktas, samtidigt som
               det utgör ett lärande för baspersonal i iakttagande av patient.
             </Typography>
+            <Divider />
+            <Typography variant="h5">Integritetspolicy</Typography>
+            <Button onClick={changeRoute}>Läs hela policyn här</Button>
           </Stack>
         </DialogContent>
       </Dialog>
