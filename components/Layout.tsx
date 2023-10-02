@@ -20,7 +20,7 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Head>
-        <title>CAS - {data.Item.info.name}</title>
+        <title>CAS</title>
         <meta name="description" content="CAS" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content={data.Item.info.theme.primaryColor} />

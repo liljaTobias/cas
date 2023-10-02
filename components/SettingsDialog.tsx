@@ -38,7 +38,7 @@ const SettingsDialog = () => {
 
   return (
     <>
-      <ListItemButton {...bindTrigger(popupState)}>
+      <ListItemButton {...bindTrigger(popupState)} disabled>
         <ListItemIcon>
           <Settings />
         </ListItemIcon>
