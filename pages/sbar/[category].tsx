@@ -1,7 +1,9 @@
-import { Collapse, List } from '@mui/material'
+import { Collapse, List, ListItem } from '@mui/material'
+import { minHeight } from '@mui/system'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo, useState } from 'react'
 import useSWR from 'swr'
+import { FooterAd } from '../../components/ads/FooterAd'
 import WithLoading from '../../components/WithLoading'
 import { TCategory, TSubcategory } from '../../types/api'
 import { Page } from '../../types/page'
@@ -47,25 +49,37 @@ const Sbar: Page<SbarProps> = () => {
   return (
     <>
       <WithLoading isOpen={!data}>
-        <List disablePadding>
-          {subcategories.map((subcategory, index: number) => (
-            <div key={subcategory.subcategory_id}>
-              <SubcategoryItem
-                name={subcategory.subcategory_name}
-                onClick={() => handleOpenList(index)}
-                key={subcategory.subcategory_id}
-                isOpen={open[index]}
-              />
-              <Collapse in={open[index]}>
-                <List disablePadding>
-                  {Object.entries(subcategory.actions).map(([key, value]) => (
-                    <ActionItem key={key} value={value} />
-                  ))}
-                </List>
-              </Collapse>
-            </div>
-          ))}
-        </List>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: 'calc(100vh - 200px)',
+            justifyContent: 'space-between',
+          }}
+        >
+          <List disablePadding>
+            {subcategories.map((subcategory, index: number) => (
+              <div key={subcategory.subcategory_id}>
+                <SubcategoryItem
+                  name={subcategory.subcategory_name}
+                  onClick={() => handleOpenList(index)}
+                  key={subcategory.subcategory_id}
+                  isOpen={open[index]}
+                />
+                <Collapse in={open[index]}>
+                  <List disablePadding>
+                    {Object.entries(subcategory.actions).map(([key, value]) => (
+                      <ActionItem key={key} value={value} />
+                    ))}
+                  </List>
+                </Collapse>
+              </div>
+            ))}
+            {/* <ListItem>
+          </ListItem> */}
+          </List>
+          <FooterAd />
+        </div>
       </WithLoading>
     </>
   )
